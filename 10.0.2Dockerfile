@@ -1,4 +1,4 @@
-FROM python:2.7.18-slim-stretch as base
+FROM python:2.7.16-slim-jessie as base
 
 EXPOSE 8069 8072
 
@@ -53,13 +53,13 @@ RUN apt-get -qq update \
         openssh-client telnet xz-utils \
         apt-transport-https \
         ca-certificates \
-    && echo 'deb http://apt-archive.postgresql.org/pub/repos/apt stretch-pgdg main' >> /etc/apt/sources.list.d/postgresql.list \
+    && echo 'deb http://apt-archive.postgresql.org/pub/repos/apt jessie-pgdg-archive main' >> /etc/apt/sources.list.d/postgresql.list \
     && curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python /dev/stdin \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
     && apt-get install -yqq nodejs \
     && curl -SLo fonts-liberation2.deb http://ftp.debian.org/debian/pool/main/f/fonts-liberation2/fonts-liberation2_2.00.1-3_all.deb \
     && dpkg --install fonts-liberation2.deb \
-    && curl -SLo wkhtmltox.deb https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/${WKHTMLTOPDF_VERSION}/wkhtmltox_${WKHTMLTOPDF_VERSION}-1.stretch_amd64.deb \
+    && curl -SLo wkhtmltox.deb https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/${WKHTMLTOPDF_VERSION}/wkhtmltox_${WKHTMLTOPDF_VERSION}-1.jessie_amd64.deb \
     && apt-get install -yqq --no-install-recommends ./wkhtmltox.deb \
     && rm wkhtmltox.deb \
     && wkhtmltopdf --version \
